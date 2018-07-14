@@ -1,0 +1,21 @@
+{
+  "getlist": {
+    "handler": "src/lambda.getList",
+    "events": [
+      {
+        "http": {
+          "path": "/todos",
+          "method": "any",
+          "cors": true
+        }
+      },
+      {
+        "http": {
+          "path": "/todos/{proxy+}",
+          "method": "any",
+          "cors": true
+        }
+      }
+    ]
+  }
+}

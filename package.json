@@ -1,0 +1,19 @@
+{
+  "name": "bologna-js-serverless",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "deploy": "serverless deploy",
+    "remove": "serverless remove",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Davide Fiorello <davide@codeflyer.com> (http://github.com/codeflyer/)",
+  "license": "ISC",
+  "devDependencies": {
+    "serverless": "^1.28.0",
+    "serverless-stack-output": "^0.2.3"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.275.1"
+  }
+}

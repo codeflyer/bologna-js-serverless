@@ -1,0 +1,25 @@
+{
+  "TodoDynamoDbTable": {
+    "Type": "AWS::DynamoDB::Table",
+    "DeletionPolicy": "Delete",
+    "Properties": {
+      "AttributeDefinitions": [
+        {
+          "AttributeName": "UserIdentifier",
+          "AttributeType": "S"
+        }
+      ],
+      "KeySchema": [
+        {
+          "AttributeName": "UserIdentifier",
+          "KeyType": "HASH"
+        }
+      ],
+      "ProvisionedThroughput": {
+        "ReadCapacityUnits": 1,
+        "WriteCapacityUnits": 1
+      },
+      "TableName": "${self:service}-${opt:stage, self:provider.stage}"
+    }
+  }
+}

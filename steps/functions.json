@@ -1,0 +1,45 @@
+{
+  "getlist": {
+    "handler": "src/lambda.getList",
+    "events": [
+      {
+        "http": {
+          "path": "/todos",
+          "method": "get",
+          "cors": true
+        }
+      },
+      {
+        "http": {
+          "path": "/todos/{proxy+}",
+          "method": "get",
+          "cors": true
+        }
+      }
+    ]
+  },
+  "addtodo": {
+    "handler": "src/lambda.addTodo",
+    "events": [
+      {
+        "http": {
+          "path": "/todos",
+          "method": "post",
+          "cors": true
+        }
+      }
+    ]
+  },
+  "setStatus": {
+    "handler": "src/lambda.setStatus",
+    "events": [
+      {
+        "http": {
+          "path": "/todos",
+          "method": "put",
+          "cors": true
+        }
+      }
+    ]
+  }
+}

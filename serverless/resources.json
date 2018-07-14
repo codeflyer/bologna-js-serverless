@@ -1,0 +1,7 @@
+{
+  "Resources": {
+    "TodoDynamoDbTable":
+      "${file(./serverless/resources/dynamodb.json):TodoDynamoDbTable}"
+  },
+  "Outputs": {}
+}
