@@ -1,8 +1,11 @@
 'use strict'
-const AWS = require('aws-sdk')
+const todoService = require('./todoService')
+
+const dynamoDbTable = process.env.DYNAMODB_TABLE
+const dynamoDbRegion = process.env.DYNAMODB_REGION
 
 exports.getList = async (event, context, callback) => {
-  if (!event.queryStringParameters.name) {
+  if (!event.queryStringParameters || !event.queryStringParameters.name) {
     const response = {
       statusCode: 200,
       body: 'The name is required'
@@ -11,27 +14,16 @@ exports.getList = async (event, context, callback) => {
     callback(null, response)
     return
   }
-  const dynamodb = new AWS.DynamoDB({
-    apiVersion: '2012-08-10',
-    region: 'eu-west-1'
-  })
-  const documentClient = new AWS.DynamoDB.DocumentClient({ service: dynamodb })
 
-  const params = {
-    TableName: 'todo-bologna-js-dev',
-    KeyConditions: {
-      UserIdentifier: {
-        ComparisonOperator: 'EQ',
-        AttributeValueList: [event.queryStringParameters.name]
-      }
-    }
-  }
-
-  const result = await documentClient.query(params).promise()
+  const service = todoService(dynamoDbTable, dynamoDbRegion)
+  const result = await service.list(event.queryStringParameters.name)
 
   const response = {
     statusCode: 200,
-    body: JSON.stringify(result.Items)
+    body: JSON.stringify({
+      items: result.Items,
+      context: { dynamoDbTable, dynamoDbRegion }
+    })
   }
 
   callback(null, response)

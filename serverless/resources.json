@@ -3,5 +3,16 @@
     "TodoDynamoDbTable":
       "${file(./serverless/resources/dynamodb.json):TodoDynamoDbTable}"
   },
-  "Outputs": {}
+  "Outputs": {
+    "DynamoDb": {
+      "Value": {
+        "Ref": "TodoDynamoDbTable"
+      }
+    },
+    "DynamoDbArn": {
+      "Value": {
+        "Fn::GetAtt": ["TodoDynamoDbTable", "Arn"]
+      }
+    }
+  }
 }

@@ -7,19 +7,43 @@
         {
           "AttributeName": "UserIdentifier",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "Id",
+          "AttributeType": "S"
         }
       ],
       "KeySchema": [
         {
           "AttributeName": "UserIdentifier",
           "KeyType": "HASH"
+        },
+        {
+          "AttributeName": "Id",
+          "KeyType": "RANGE"
+        }
+      ],
+      "GlobalSecondaryIndexes": [
+        {
+          "IndexName": "UUIDIndex",
+          "KeySchema": [{
+            "AttributeName": "Id",
+            "KeyType": "HASH"
+          }],
+          "Projection": {
+            "ProjectionType": "ALL"
+          },
+          "ProvisionedThroughput": {
+            "ReadCapacityUnits": 1,
+            "WriteCapacityUnits": 1
+          }
         }
       ],
       "ProvisionedThroughput": {
         "ReadCapacityUnits": 1,
         "WriteCapacityUnits": 1
       },
-      "TableName": "${self:service}-${opt:stage, self:provider.stage}"
+      "TableName": "${self:provider.environment.DYNAMODB_TABLE}"
     }
   }
 }
